@@ -31,6 +31,20 @@ ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=lambda v: [s.strip() for s in v.spl
 
 # Application definition
 
+LOCAL_DJANGO_APPS = [
+    'account.apps.AccountConfig',
+    'blog.apps.BlogConfig',
+]
+
+THIRD_PARTY_PACKAGES = [
+    'django_filters',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'rest_framework_simplejwt',
+    'drf_yasg',
+    'mail_templated',
+]
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -38,11 +52,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django_filters',
-    'rest_framework',
-    'drf_yasg',
-    'account',
-    'blog',
+    *LOCAL_DJANGO_APPS,
+    *THIRD_PARTY_PACKAGES,
 ]
 
 MIDDLEWARE = [
@@ -141,11 +152,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # User manager config
 AUTH_USER_MODEL = 'account.User'
 
-# REST_FRAMEWORK = {
-#     # 'DEFAULT_PERMISSION_CLASSES': [
-#     #     'rest_framework.permissions.IsAuthenticated',
-#     # ]
-#     # 'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
-#     # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
-#     # 'PAGE_SIZE': 3
-# }
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ]
+}
