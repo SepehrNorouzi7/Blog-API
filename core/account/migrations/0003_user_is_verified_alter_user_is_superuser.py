@@ -6,18 +6,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('account', '0002_profile'),
+        ("account", "0002_profile"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='user',
-            name='is_verified',
+            model_name="user",
+            name="is_verified",
             field=models.BooleanField(default=False),
         ),
         migrations.AlterField(
-            model_name='user',
-            name='is_superuser',
+            model_name="user",
+            name="is_superuser",
             field=models.BooleanField(default=False),
         ),
     ]

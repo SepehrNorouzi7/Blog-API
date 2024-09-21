@@ -3,6 +3,7 @@ from django.dispatch import receiver
 from django.db import models
 from .users import User
 
+
 class Profile(models.Model):
     """
     Profile class for each user which is being created to hold the information

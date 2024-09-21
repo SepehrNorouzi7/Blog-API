@@ -208,12 +208,15 @@ class ActivationResendApiView(generics.GenericAPIView):
     def get_tokens_for_user(self, user):
         refresh = RefreshToken.for_user(user)
         return str(refresh.access_token)
-    
+
+
 class CustomRedirect(HttpResponsePermanentRedirect):
     allowed_schemes = [os.environ.get("APP_SCHEME"), "http", "https"]
 
+
 class RequestPasswordResetEmail(generics.GenericAPIView):
     serializer_class = ResetPasswordEmailRequestSerializer
+
     def post(self, request):
         data = {"request": request, "data": request.data}
         serializer = self.serializer_class(data=data)
@@ -240,9 +243,11 @@ class RequestPasswordResetEmail(generics.GenericAPIView):
             {"success": "We have sent you a link to reset your password"},
             status=status.HTTP_200_OK,
         )
-    
+
+
 class PasswordTokenCheckAPI(generics.GenericAPIView):
     serializer_class = SetNewPasswordSerializer
+
     def get(self, request, uidb64, token):
         try:
             id = smart_str(urlsafe_base64_decode(uidb64))
@@ -267,8 +272,11 @@ class PasswordTokenCheckAPI(generics.GenericAPIView):
                     {"error": "Token is not valid."},
                     status=status.HTTP_401_UNAUTHORIZED,
                 )
+
+
 class SetNewPasswordAPIView(generics.GenericAPIView):
     serializer_class = SetNewPasswordSerializer
+
     def patch(self, request):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)

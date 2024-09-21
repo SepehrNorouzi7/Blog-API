@@ -43,7 +43,7 @@ urlpatterns = [
     ),
     path("jwt/refresh/", TokenRefreshView.as_view(), name="jwt-refresh"),
     path("jwt/verify/", TokenVerifyView.as_view(), name="jwt-verify"),
-        path(
+    path(
         "request-reset-email/",
         views.RequestPasswordResetEmail.as_view(),
         name="request-reset-email",

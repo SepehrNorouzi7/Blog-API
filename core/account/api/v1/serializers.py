@@ -10,6 +10,7 @@ from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.utils.encoding import force_str
 from django.utils.http import urlsafe_base64_decode
 
+
 class RegistrationSerializer(serializers.ModelSerializer):
     password1 = serializers.CharField(max_length=255, write_only=True)
 
@@ -113,6 +114,7 @@ class ProfileSerializer(serializers.ModelSerializer):
         )
         read_only_fields = ["email"]
 
+
 class ActivationResendSerializer(serializers.Serializer):
     email = serializers.EmailField(required=True)
 
@@ -128,18 +130,23 @@ class ActivationResendSerializer(serializers.Serializer):
             )
         attrs["user"] = user_obj
         return super().validate(attrs)
-    
+
+
 class ResetPasswordEmailRequestSerializer(serializers.Serializer):
     email = serializers.EmailField(min_length=2)
+
     class Meta:
         fields = ["email"]
+
 
 class SetNewPasswordSerializer(serializers.Serializer):
     password = serializers.CharField(min_length=6, max_length=68, write_only=True)
     token = serializers.CharField(min_length=1, write_only=True)
     uidb64 = serializers.CharField(min_length=1, write_only=True)
+
     class Meta:
         fields = ["password", "token", "uidb64"]
+
     def validate(self, attrs):
         try:
             password = attrs.get("password")
