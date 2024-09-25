@@ -6,7 +6,10 @@ markdown
 django-filter
 drf-yasg[validation]
 django-mail-templated
+djangorestframework-simplejwt
 black
 flake8
 celery
 redis
+pytest
+pytest-django
